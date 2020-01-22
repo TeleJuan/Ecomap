@@ -56,7 +56,7 @@ class HomeTempPage extends StatelessWidget {
       width: size.width * 0.7,
       child: Image(
         image: NetworkImage(
-            'https://www.stickpng.com/assets/images/58afdadd829958a978a4a694.png'),
+            'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg'),
       ),
     );
   }
