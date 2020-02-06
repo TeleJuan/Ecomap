@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _card(context,size,'https://pbs.twimg.com/media/EGUedxSU8AEMFKV?format=jpg&name=small','Ir a reciclar'),
+              _card(context,size,'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg','Ir a reciclar'),
             ],
           )
         ],
@@ -51,13 +51,13 @@ class HomePage extends StatelessWidget {
               image: NetworkImage(
                   asset),
               placeholder: NetworkImage(
-                  'https://pbs.twimg.com/media/EGUedxSU8AEMFKV?format=jpg&name=small'),
+                  'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg'),
               fadeInDuration: Duration(milliseconds: 200),
               width: size.width*0.85,
               fit: BoxFit.cover),
           Container(
               padding: EdgeInsets.all(10.0),
-              child: Text('Charlotte sartre es la más rica <3'))
+              child: Text('Reciclar'))
         ],
       ),
     );
