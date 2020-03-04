@@ -2,6 +2,8 @@ const { Router } = require('express')
 const router = Router()
 
 const User = require('../models/userModel')
+const Caja = require('../models/cajaModel')
+
 const verifyToken = require('./verifyToken')
 
 const jwt = require('jsonwebtoken')
@@ -60,5 +62,47 @@ router.post('/signin',async(req,res)=>{
 router.get('/logout',function(req,res){
     res.status(200).send({auth:false,token:null})
 });
+
+router.post('/userdata',async (req,res)=>{
+    try{
+        user= await User.findOne({email:req.body.email})
+        res.status(200).send({username:user.username,locations:user.locations,usermail:user.email});
+        }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+
+router.get('/usercaja',async (req,res)=>{
+    try{
+        caja= await Caja.findOne({email:req.body.email})
+            res.status(200).send({type_1:caja.P,type_4:caja.V,type_9:caja.L});
+
+        }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+router.post('/updatecaja', async(req,res)=>{
+    try{
+        caja= await Caja.findOne({email:req.body.email})
+        cantidad_P= caja.P;
+        cantidad_V=caja.V;
+        cantidad_L=caja.L;
+        modi_P=req.body.P;
+        modi_V=req.body.V;
+        modi_L=req.body.L;
+        if(cantidad_P!=null){
+            cantidad_P=cantidad_P + modi_P;
+        }
+        if(cantidad_V!=null){
+            cantidad_V =cantidad_V + modi_V;
+        }
+        if(cantidad_P!=null){
+            cantidad_L =cantidad_L + modi_L;
+        }
+
+    }
+
 
 module.exports = router;
