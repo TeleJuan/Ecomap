@@ -19,8 +19,21 @@ router.post('/signup',async(req,res)=>{
             email,
             password
         });
+<<<<<<< HEAD
         user.password = await user.encryptPassword(password);
         await user.save();
+=======
+        const caja= new Caja({
+            email,
+            P:0,
+            V:0,
+            L:0
+        });
+        user.password = await user.encryptPassword(password);
+        await user.save();
+        await caja.save();
+       
+>>>>>>> develop
 
         const token = jwt.sign({id: user.id},
             config.secret,{
@@ -84,11 +97,16 @@ router.get('/usercaja',async (req,res)=>{
         }   
     });
 router.post('/updatecaja', async(req,res)=>{
+<<<<<<< HEAD
+=======
+    console.log(req.body)
+>>>>>>> develop
     try{
         caja= await Caja.findOne({email:req.body.email})
         cantidad_P= caja.P;
         cantidad_V=caja.V;
         cantidad_L=caja.L;
+<<<<<<< HEAD
         modi_P=req.body.P;
         modi_V=req.body.V;
         modi_L=req.body.L;
@@ -103,6 +121,28 @@ router.post('/updatecaja', async(req,res)=>{
         }
 
     }
+=======
+        if(req.body.hasOwnProperty("P")){
+            cantidad_P=cantidad_P + req.body.P;
+        }
+        if(req.body.hasOwnProperty("V")){
+            cantidad_V =cantidad_V + req.body.V;
+        }
+        if(req.body.hasOwnProperty("L")){
+            cantidad_L =cantidad_L + req.body.L;
+        }
+        data={P:cantidad_P,L:cantidad_L,V:cantidad_V}
+        await Caja.findOneAndUpdate(req.body.email,data);
+        caja.save();
+        res.status(200).send(data)
+
+
+    }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+>>>>>>> develop
 
 
 module.exports = router;
