@@ -3,6 +3,8 @@ const router = Router()
 
 const User = require('../models/userModel')
 const Caja = require('../models/cajaModel')
+const Locations = require('../models/locationsModel')
+
 
 const verifyToken = require('./verifyToken')
 
@@ -19,10 +21,9 @@ router.post('/signup',async(req,res)=>{
             email,
             password
         });
-<<<<<<< HEAD
         user.password = await user.encryptPassword(password);
         await user.save();
-=======
+
         const caja= new Caja({
             email,
             P:0,
@@ -33,8 +34,6 @@ router.post('/signup',async(req,res)=>{
         await user.save();
         await caja.save();
        
->>>>>>> develop
-
         const token = jwt.sign({id: user.id},
             config.secret,{
                 expiresIn: '24h'
@@ -86,42 +85,23 @@ router.post('/userdata',async (req,res)=>{
         }   
     });
 
-router.get('/usercaja',async (req,res)=>{
+router.post('/usercaja',async (req,res)=>{
     try{
         caja= await Caja.findOne({email:req.body.email})
-            res.status(200).send({type_1:caja.P,type_4:caja.V,type_9:caja.L});
+            res.status(200).send({P:caja.P,V:caja.V,L:caja.L});
 
         }catch(e){
         console.log(e)
         res.status(500).send({message:'hubo un problema'})
         }   
     });
+
 router.post('/updatecaja', async(req,res)=>{
-<<<<<<< HEAD
-=======
-    console.log(req.body)
->>>>>>> develop
     try{
         caja= await Caja.findOne({email:req.body.email})
         cantidad_P= caja.P;
         cantidad_V=caja.V;
-        cantidad_L=caja.L;
-<<<<<<< HEAD
-        modi_P=req.body.P;
-        modi_V=req.body.V;
-        modi_L=req.body.L;
-        if(cantidad_P!=null){
-            cantidad_P=cantidad_P + modi_P;
-        }
-        if(cantidad_V!=null){
-            cantidad_V =cantidad_V + modi_V;
-        }
-        if(cantidad_P!=null){
-            cantidad_L =cantidad_L + modi_L;
-        }
 
-    }
-=======
         if(req.body.hasOwnProperty("P")){
             cantidad_P=cantidad_P + req.body.P;
         }
@@ -142,7 +122,74 @@ router.post('/updatecaja', async(req,res)=>{
         res.status(500).send({message:'hubo un problema'})
         }   
     });
->>>>>>> develop
+
+router.post('/updateuser', async(req,res)=>{
+    try{
+        user= await User.findOne({email:req.body.email})
+        user_password=user.password;
+
+        if(req.body.hasOwnProperty("username")){
+            if(req.body.username==user.username){
+                res.status(500).send({message:'Este usuario ya existe'})
+            }
+            user_name=req.body.username;
+        }
+        if(req.body.hasOwnProperty("email")){
+            user_mail=req.body.email;
+        }
+        if(req.body.hasOwnProperty("password")){
+            user_password=user.password;
+        }
+        if(req.body.hasOwnProperty("locations")){
+            user_locations=req.body.locations;
+        }
+        data={username:user_name,email:user_mail,password:user_password,locations:user_locations}
+        console.log(data)
+        await User.findOneAndUpdate(req.body.email,data);
+        user.save();
+        res.status(200)
+
+
+    }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+
+router.post('/puntosverdes', async(req,res)=>{
+try{
+    const {types,longitude,latitude} = req.body;
+    const locations = new Locations ({
+            types,
+            longitude,
+            latitude
+        }); 
+        console.log(types)
+        await locations.save();
+        res.status(200).send()
+
+
+    }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+
+router.post('/rutasverdes', async(req,res)=>{
+try{
+    locations= await Locations.findOne({types:req.body.types});
+    
+    console.log(locations)
+    res.status(200).send()
+
+
+    }catch(e){
+        console.log(e)
+        res.status(500).send({message:'hubo un problema'})
+        }   
+    });
+
+
 
 
 module.exports = router;
