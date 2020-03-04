@@ -1,12 +1,58 @@
-import 'package:ecomap_borrador/src/widgets/home_button_widget.dart';
+import 'package:ecomap_borrador/src/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:ecomap_borrador/src/pages/login_page.dart';
+import 'package:ecomap_borrador/src/widgets/home_button_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeTempPage extends StatelessWidget {
+class HomeTempPage extends StatefulWidget {
+  @override
+  _HomeTempPageState createState() => _HomeTempPageState();
+}
+
+class _HomeTempPageState extends State<HomeTempPage> {
+
+  SharedPreferences sharedPreferences;
+
+  checkLoginStatus() async {
+    print("por la mierda");
+    sharedPreferences = await SharedPreferences.getInstance();
+    print(sharedPreferences.getString("token"));
+    if(sharedPreferences.getString("token")== null){
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>LoginPage()), (Route<dynamic> route)=>false);
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    checkLoginStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size _screenSize = MediaQuery.of(context).size;
+    /*
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(child: Loader()),
+    );
+    */
+    
     return Scaffold(
       backgroundColor: Colors.green,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.greenAccent.withOpacity(0.0),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: (){
+                sharedPreferences.clear();
+                sharedPreferences.commit();
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>LoginPage()), (Route<dynamic> route)=>false);
+
+          }, child: Text("Logout",style: TextStyle(color:Colors.greenAccent),))
+        ]
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -14,6 +60,7 @@ class HomeTempPage extends StatelessWidget {
               SizedBox(
                 height: 50.0,
               ),
+              _titulo(),
               SizedBox(
                 height: 50.0,
               ),
@@ -32,11 +79,17 @@ class HomeTempPage extends StatelessWidget {
               SizedBox(
                 height: 10.0,
               ),
+              _recycle(_screenSize),
+              SizedBox(
+                height: 10.0,
+              ),
+              _profile(_screenSize),
             ],
           ),
         ),
       ),
     );
+    
   }
 
   Widget _titulo() {
@@ -61,7 +114,6 @@ class HomeTempPage extends StatelessWidget {
     );
   }
 
-  // TODO: cambiar a raisedbutton
   Widget _login(Size size) {
     return RedirectButton('login', 'Login');
   }
@@ -72,5 +124,13 @@ class HomeTempPage extends StatelessWidget {
 
   Widget _home(Size screenSize) {
     return RedirectButton('home', 'Home');
+  }
+
+  Widget _recycle(Size screenSize) {
+    return RedirectButton('recycle', 'Reciclar');
+  }
+
+  Widget _profile(Size screenSize) {
+    return RedirectButton('profile', 'Perfil');
   }
 }

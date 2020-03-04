@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:ecomap_borrador/src/widgets/home_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -32,10 +34,13 @@ class HomePage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
       child: ListView(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _card(context,size,'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg','Ir a reciclar'),
+              _card(context,size,'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg','recycle','Reciclar'),
+              SizedBox(height: 45,),
+              _card(context,size,'','box','Caja de reciclaje'),
+              SizedBox(height: 45,),
             ],
           )
         ],
@@ -43,22 +48,25 @@ class HomePage extends StatelessWidget {
     );
   }
 
-   Widget _card(BuildContext context,Size size, String asset, String accion) {
+   Widget _card(BuildContext context,Size size, String asset, String accion,String texto) {
     final card = Container(
-      child: Column(
-        children: <Widget>[
-          FadeInImage(
-              image: NetworkImage(
-                  asset),
-              placeholder: NetworkImage(
-                  'http://d2hkaprgf6waz1.cloudfront.net/sites/elmartutino.cl/files/imagecache/principal_mobile/imagen_noticia/mapaverde.jpg'),
-              fadeInDuration: Duration(milliseconds: 200),
-              width: size.width*0.85,
-              fit: BoxFit.cover),
-          Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text('Reciclar'))
-        ],
+      child: GestureDetector(
+        onTap: ()=>Navigator.of(context).pushNamed(accion),
+        child: Column(
+          children: <Widget>[
+            FadeInImage(
+                image: NetworkImage(
+                    asset),
+                placeholder: NetworkImage(
+                    'https://i.pinimg.com/originals/35/d6/8b/35d68be1a596880a5b298bf299bb179a.gif'),
+                fadeInDuration: Duration(milliseconds: 200),
+                width: size.width*0.85, 
+                fit: BoxFit.cover),
+            Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(texto))
+          ],
+        ),
       ),
     );
     

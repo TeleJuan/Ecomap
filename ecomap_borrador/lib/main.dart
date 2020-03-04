@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ecomap',
       debugShowCheckedModeBanner: false,
-      routes: getApplicationRoutes(),
+      routes: getApplicationRoutes() ,
     );
   }
 }

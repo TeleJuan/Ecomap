@@ -27,7 +27,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  http: any
+  shared_preferences: any
+  google_maps_flutter: ^0.5.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -41,8 +43,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+  - assets/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

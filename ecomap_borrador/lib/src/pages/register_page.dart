@@ -19,33 +19,36 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.green,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              height: 40.0,
-            ),
-            crearUsuario(),
-            SizedBox(
-              height: 20.0,
-            ),
-            crearCorreo(),
-            SizedBox(
-              height: 20.0,
-            ),
-            crearPass(),
-            SizedBox(
-              height: 20.0,
-            ),
-            confirmacionPass(),
-            SizedBox(
-              height: 80.0,
-            ),
-            registerButton(context),
-            SizedBox(
-              height: 50.0,
-            ),
-          ],
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              SizedBox(
+                height: 60.0,
+              ),
+              crearUsuario(),
+              SizedBox(
+                height: 30.0,
+              ),
+              crearCorreo(),
+              SizedBox(
+                height: 30.0,
+              ),
+              crearPass(),
+              SizedBox(
+                height: 30.0,
+              ),
+              confirmacionPass(),
+              SizedBox(
+                height: 80.0,
+              ),
+              registerButton(context),
+              SizedBox(
+                height: 50.0,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -125,6 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final Size _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width * 0.5,
+      height: 50.0,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
