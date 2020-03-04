@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const locationSchema = new Schema({
     latitude: Number,
     longitude: Number,
-    type: String
+    types: String
 })
 
 module.exports = model('Location',locationSchema)
