@@ -3,7 +3,7 @@ const router = Router()
 
 const User = require('../models/userModel')
 const Caja = require('../models/cajaModel')
-const Locations = require('../models/locationsModel')
+const Locations = require('../models/locationModel')
 
 
 const verifyToken = require('./verifyToken')
