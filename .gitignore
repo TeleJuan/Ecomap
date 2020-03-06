@@ -1,4 +1,4 @@
-/backend/node_modules
+backend/node_modules/
 # General
 .DS_Store
 .AppleDouble
